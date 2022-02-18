@@ -8,6 +8,12 @@ import TextField from '@mui/material/TextField';
 function App() {
   const [meal, setMeal] = useState("");
 
+  window.onLoad = loadRecipes();
+
+  function loadRecipes(){
+    console.log('loaded');
+  }
+
   function search() {
     console.log(meal);
   }
@@ -19,14 +25,18 @@ function App() {
         id="search-bar"
         options={['The Godfather', 'Pulp Fiction']}
         sx={{ width: 300 }}
+        // sets meal const as input value
+        inputValue={meal}
+        onInputChange={(event, newInputValue) => {
+          setMeal(newInputValue);
+        }}
         renderInput={(params) => <TextField 
           {...params} 
           label="Search"
-          onChangeCapture={(e) => setMeal(e.target.value)}
+          //searches on 'enter' keypress
           onKeyPress={(e) => {
-            console.log(e);
             if (e.key === 'Enter') search();
-          }} 
+          }}
         />}
       />
     </div>
