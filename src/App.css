@@ -1,10 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&family=Playfair+Display:wght@700;800&display=swap');
+
 /* creates color variables */
 :root {
-  --grey: rgb(180, 180, 180);
+  --grey: #F4F6F6;
   --black: rgb(0, 0, 0);
+  --green: rgb(110, 173, 118);
 }
 
 /* default page style */
 .App {
+  background: var(--grey);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
+.header {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  padding: 1rem;
+}
+
+.logo {
+  height: 3rem;
+  width: 3rem;
+  background-image: url("https://www.graphicsprings.com/filestorage/stencils/569ceaf28defb915e5ff6c53cc7665aa.png?width=500&height=500");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: .5rem;
+}
+
+.header p {
+  margin: 0;
+  font-family: 'Inconsolata', monospace;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+
+.banner {
+  width: 80%;
+  margin: 3rem;
+}
+
+.banner p {
+  margin: 0px;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.inspo {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100rem;
+  margin-top: 2rem;
+}
+
+.inspo-header {
+  color: var(--green);
+}
+
+*{
+  box-sizing: border-box;
+}
+
+/* allows for responsive css, rem */
+html{
+  font-size: 13px;
+}
+
+@media only screen and (min-width: 480px) {
+  html{
+      font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  html{
+      font-size: 19px;
+  }
 }
