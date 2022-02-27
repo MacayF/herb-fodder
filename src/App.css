@@ -61,6 +61,11 @@
   color: var(--green);
 }
 
+button {
+  width: 4rem;
+  height: 2rem;
+}
+
 *{
   box-sizing: border-box;
 }

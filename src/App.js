@@ -1,41 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import jsonData from './openrecipes.json';
+import InspoCard from './InspoCard.js';
 
 
 
 function App() {
   const [meal, setMeal] = useState("");
-  const [allMeals, setAllMeals] = useState([]);
+  const [allMeals, setAllMeals] = useState(["hello"]);
+  const loadData = JSON.parse(JSON.stringify(jsonData));
 
-  window.onLoad = loadRecipes();
+  document.addEventListener("DOMContentLoaded", loadRecipes);
 
-  async function loadRecipes(){
-    console.log('loaded');
-    await fetch("https://edamam-recipe-search.p.rapidapi.com/search?q=vegan", {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "edamam-recipe-search.p.rapidapi.com",
-        "x-rapidapi-key": "677f84484cmsh1441584038ec2f5p19a6bdjsn0502b775bdc5"
-      }
-    })
-    .then(response => response.json())
-    // .then(data => makeDataSet(data))
-    .then(data => console.log(data))
-    .catch(err => {
-      console.error(err);
-    });
-  }
-
-  function makeDataSet(data) {
-    for(var i = 0; i < 10; i++) {
-      const recipe = data.hits[i];
-      setAllMeals([recipe, ...allMeals]);
-      console.log(allMeals);
+  // creates list of possible recipe names
+  function loadRecipes() {
+    var newState= [];
+    for(var i = 0; i < loadData.recipes.length; i++) {
+      const recipe = loadData.recipes[i].name;
+      newState.push(recipe);
     }
+    setAllMeals(newState);
+    console.log(allMeals);
   }
+
 
   function search() {
     console.log(meal);
@@ -54,7 +43,7 @@ function App() {
       <Autocomplete
         disablePortal
         id="search-bar"
-        options={['Meatloaf', 'Tuna Salad Sandwich', 'ceaser salad']}
+        options={allMeals}
         sx={{ width: 330, bgcolor: 'white' }}
         // sets meal const as input value
         inputValue={meal}
@@ -72,6 +61,11 @@ function App() {
       />
       <div className='inspo'>
         <p className='inspo-header'>Some Eco-Inspo</p>
+        {allMeals.map((meal, i)=>{
+          // return a inspocard component
+          // key needs to be a unique value for each item
+          return <InspoCard name={meal} key={i}/>
+        })}
       </div>
     </div>
   );
