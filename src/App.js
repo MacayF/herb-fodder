@@ -4,6 +4,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import jsonData from './openrecipes.json';
 import InspoCard from './InspoCard.js';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 
@@ -32,6 +39,7 @@ function App() {
         name: loadData.recipes[i].name,
         url: loadData.recipes[i].url,
         image: loadData.recipes[i].image,
+        date: loadData.recipes[i].datePublished,
       };
       newState.push(newRecipe);
     }
@@ -84,13 +92,37 @@ function App() {
       />
       <div className='inspo'>
         <p className='inspo-header'>Some Eco-Inspo</p>
-        <div className='cards'>
-          {allMeals.map((meal, i)=>{
-            // return a inspocard component
-            // key needs to be a unique value for each item
-            return <InspoCard {...meal} key={i}/>
-          })}
-        </div>
+        <ImageList variant="masonry" cols={2} gap={8}>
+          {allMeals.map((item) => (
+            <ImageListItem key={item.image}>
+              <img
+                src={`${item.image}?w=248&fit=crop&auto=format`}
+                // srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src="https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-image-available-icon-flat-vector.jpg";
+                }}
+                alt={item.name}
+                loading="lazy"
+              />
+              <ImageListItemBar
+                title={item.name}
+                subtitle={item.date}
+                actionIcon={
+                  <IconButton
+                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                    aria-label={`info about ${item.title}`}
+                    onClick={() => {
+                      window.open(item.url);
+                    }}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
       </div>
     </div>
   );
