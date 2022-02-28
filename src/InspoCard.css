@@ -1,5 +1,14 @@
 .card {
   background: white;
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  margin-top: 1rem;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 1rem;
+}
+
+.card img {
+  width: 100%;
 }

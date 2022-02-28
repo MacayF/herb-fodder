@@ -9,26 +9,49 @@ import InspoCard from './InspoCard.js';
 
 function App() {
   const [meal, setMeal] = useState("");
-  const [allMeals, setAllMeals] = useState(["hello"]);
+  const [mealNames, setMealNames] = useState([]);
+  const [allMeals, setAllMeals] = useState([]);
   const loadData = JSON.parse(JSON.stringify(jsonData));
 
   document.addEventListener("DOMContentLoaded", loadRecipes);
 
-  // creates list of possible recipe names
+  // fills states with meals
   function loadRecipes() {
+    // sets mealNames with names of meals
     var newState= [];
     for(var i = 0; i < loadData.recipes.length; i++) {
       const recipe = loadData.recipes[i].name;
       newState.push(recipe);
     }
+    setMealNames(newState);
+
+    // sets allMeals with meal objects
+    var newState= [];
+    for(var i = 0; i < loadData.recipes.length; i++) {
+      const newRecipe = {
+        name: loadData.recipes[i].name,
+        url: loadData.recipes[i].url,
+        image: loadData.recipes[i].image,
+      };
+      newState.push(newRecipe);
+    }
+    shuffleArray(newState);
     setAllMeals(newState);
-    console.log(allMeals);
   }
 
 
   function search() {
     console.log(meal);
   }
+
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
 
   return (
     <div className="App">
@@ -43,7 +66,7 @@ function App() {
       <Autocomplete
         disablePortal
         id="search-bar"
-        options={allMeals}
+        options={mealNames}
         sx={{ width: 330, bgcolor: 'white' }}
         // sets meal const as input value
         inputValue={meal}
@@ -61,11 +84,13 @@ function App() {
       />
       <div className='inspo'>
         <p className='inspo-header'>Some Eco-Inspo</p>
-        {allMeals.map((meal, i)=>{
-          // return a inspocard component
-          // key needs to be a unique value for each item
-          return <InspoCard name={meal} key={i}/>
-        })}
+        <div className='cards'>
+          {allMeals.map((meal, i)=>{
+            // return a inspocard component
+            // key needs to be a unique value for each item
+            return <InspoCard {...meal} key={i}/>
+          })}
+        </div>
       </div>
     </div>
   );

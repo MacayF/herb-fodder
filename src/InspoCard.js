@@ -5,7 +5,8 @@ export default function Message(props) {
   return (
     <div className='card'>
       <span className='name-tag'>{props.name}</span>
-      <div className='message-text'>hi</div>
+      <div className='message-text'>{props.url}</div>
+      <img className="pic" src={props.image}/>
     </div>
   );
 }

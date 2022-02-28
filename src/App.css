@@ -53,18 +53,24 @@
 .inspo {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   height: 100rem;
   margin-top: 2rem;
 }
 
 .inspo-header {
   color: var(--green);
+  width: 100vw;
+  text-align: center;
 }
 
-button {
-  width: 4rem;
-  height: 2rem;
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
+
 
 *{
   box-sizing: border-box;
