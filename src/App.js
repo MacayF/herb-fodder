@@ -7,10 +7,11 @@ import InspoCard from './InspoCard.js';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import HomeIcon from '@mui/icons-material/Home';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 
 
@@ -19,6 +20,7 @@ function App() {
   const [mealNames, setMealNames] = useState([]);
   const [allMeals, setAllMeals] = useState([]);
   const loadData = JSON.parse(JSON.stringify(jsonData));
+  const [value, setValue] = useState(0);
 
   document.addEventListener("DOMContentLoaded", loadRecipes);
 
@@ -60,6 +62,9 @@ function App() {
         array[j] = temp;
     }
 }
+let className = 'menu';
+
+
 
   return (
     <div className="App">
@@ -75,7 +80,7 @@ function App() {
         disablePortal
         id="search-bar"
         options={mealNames}
-        sx={{ width: 330, bgcolor: 'white' }}
+        sx={{ width: '23rem', bgcolor: 'white',  filter: 'drop-shadow(0 1mm 1.5mm  rgb(0, 0, 0, 0.1))'}}
         // sets meal const as input value
         inputValue={meal}
         onInputChange={(event, newInputValue) => {
@@ -92,10 +97,10 @@ function App() {
       />
       <div className='inspo'>
         <p className='inspo-header'>Some Eco-Inspo</p>
-        <ImageList variant="masonry" cols={2} gap={8}>
-          {allMeals.map((item) => (
-            <ImageListItem key={item.image}>
-              <img
+        <ImageList variant="masonry" cols={2} gap={'0.2rem'} sx={{ width: '90vw', textAlign: 'center' }}>
+          {allMeals.slice(0, 100).map((item) => (
+            <ImageListItem key={item.image} sx={{ width: '12rem', marginBottom: '1rem' }}>
+              <img className='recipe-card-img'
                 src={`${item.image}?w=248&fit=crop&auto=format`}
                 // srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 onError={({ currentTarget }) => {
@@ -105,25 +110,26 @@ function App() {
                 alt={item.name}
                 loading="lazy"
               />
-              <ImageListItemBar
-                title={item.name}
-                subtitle={item.date}
-                actionIcon={
-                  <IconButton
-                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                    aria-label={`info about ${item.title}`}
-                    onClick={() => {
-                      window.open(item.url);
-                    }}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                }
-              />
+              <div className='subtext'>
+                {item.name}
+              </div>
             </ImageListItem>
           ))}
         </ImageList>
       </div>
+      <Box sx={{ width: 500, position: 'fixed', width: '100vw', bottom: 0, filter: 'drop-shadow(0 0mm 4mm  rgb(0, 0, 0, 0.4))' }}>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      >
+        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="Planner" icon={<CalendarTodayIcon />} />
+      </BottomNavigation>
+    </Box>
     </div>
   );
 }

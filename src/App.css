@@ -62,6 +62,7 @@
   color: var(--green);
   width: 100vw;
   text-align: center;
+  height: 3rem;
 }
 
 .cards {
@@ -71,6 +72,23 @@
   align-items: flex-start;
 }
 
+.recipe-card-img {
+  border-radius: 9px;
+  object-fit: none;
+  margin-top: 1rem;
+}
+
+.subtext {
+  inline-size: 150px;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  margin: 0.5rem;
+  line-height: normal;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: 70%;
+}
 
 *{
   box-sizing: border-box;
