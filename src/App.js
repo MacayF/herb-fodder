@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import jsonData from './openrecipes.json';
@@ -12,8 +12,18 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+// import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 
-
+// export default function Router() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route path="/" element={<App />} />
+//         <Route path="/search" element={<Search meal={meal} mealNames={mealNames}/>} />
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
 
 function App() {
   const [meal, setMeal] = useState("");
@@ -22,7 +32,10 @@ function App() {
   const loadData = JSON.parse(JSON.stringify(jsonData));
   const [value, setValue] = useState(0);
 
-  document.addEventListener("DOMContentLoaded", loadRecipes);
+
+  // document.addEventListener("DOMContentLoaded", loadRecipes);
+  // calls function only once
+  useEffect(loadRecipes, []);
 
   // fills states with meals
   function loadRecipes() {
@@ -49,11 +62,12 @@ function App() {
     setAllMeals(newState);
   }
 
-
+  //called when search is entered
   function search() {
     console.log(meal);
   }
 
+  //shuffled array passed in (used to shuffle recipes for home screen)
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -61,9 +75,7 @@ function App() {
         array[i] = array[j];
         array[j] = temp;
     }
-}
-let className = 'menu';
-
+  }
 
 
   return (
@@ -99,21 +111,23 @@ let className = 'menu';
         <p className='inspo-header'>Some Eco-Inspo</p>
         <ImageList variant="masonry" cols={2} gap={'0.2rem'} sx={{ width: '90vw', textAlign: 'center' }}>
           {allMeals.slice(0, 100).map((item) => (
-            <ImageListItem key={item.image} sx={{ width: '12rem', marginBottom: '1rem' }}>
-              <img className='recipe-card-img'
-                src={`${item.image}?w=248&fit=crop&auto=format`}
-                // srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                onError={({ currentTarget }) => {
-                  currentTarget.onerror = null; // prevents looping
-                  currentTarget.src="https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-image-available-icon-flat-vector.jpg";
-                }}
-                alt={item.name}
-                loading="lazy"
-              />
-              <div className='subtext'>
-                {item.name}
-              </div>
-            </ImageListItem>
+            <a href={item.url}>
+              <ImageListItem key={item.image} sx={{ width: '12rem', marginBottom: '1rem' }}>
+                <img className='recipe-card-img'
+                  src={`${item.image}?w=248&fit=crop&auto=format`}
+                  // srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src="https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725184-stock-illustration-image-available-icon-flat-vector.jpg";
+                  }}
+                  alt={item.name}
+                  loading="lazy"
+                />
+                <div className='subtext'>
+                  {item.name}
+                </div>
+              </ImageListItem>
+            </a>
           ))}
         </ImageList>
       </div>
@@ -133,5 +147,6 @@ let className = 'menu';
     </div>
   );
 }
+
 
 export default App;
