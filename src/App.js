@@ -1,4 +1,5 @@
 import './App.css';
+import Search from './Search.js';
 import {useEffect, useState} from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -12,25 +13,33 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-// import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { render } from "react-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 
-// export default function Router() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/" element={<App />} />
-//         <Route path="/search" element={<Search meal={meal} mealNames={mealNames}/>} />
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// }
-
-function App() {
+export default function Router() {
   const [meal, setMeal] = useState("");
   const [mealNames, setMealNames] = useState([]);
   const [allMeals, setAllMeals] = useState([]);
-  const loadData = JSON.parse(JSON.stringify(jsonData));
   const [value, setValue] = useState(0);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App meal={meal} setMeal={setMeal} mealNames={mealNames} setMealNames={setMealNames} allMeals={allMeals} setAllMeals={setAllMeals} value={value} setValue={setValue} />} />
+        <Route path="/search" element={<Search meal={meal} setMeal={setMeal} mealNames={mealNames} setMealNames={setMealNames} allMeals={allMeals} setAllMeals={setAllMeals} value={value} setValue={setValue} />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function App(props) {
+  const loadData = JSON.parse(JSON.stringify(jsonData));
+  const navigate = useNavigate();
 
 
   // document.addEventListener("DOMContentLoaded", loadRecipes);
@@ -45,7 +54,7 @@ function App() {
       const recipe = loadData.recipes[i].name;
       newState.push(recipe);
     }
-    setMealNames(newState);
+    props.setMealNames(newState);
 
     // sets allMeals with meal objects
     var newState= [];
@@ -55,16 +64,19 @@ function App() {
         url: loadData.recipes[i].url,
         image: loadData.recipes[i].image,
         date: loadData.recipes[i].datePublished,
+        description: loadData.recipes[i].description,
       };
       newState.push(newRecipe);
     }
     shuffleArray(newState);
-    setAllMeals(newState);
+    props.setAllMeals(newState);
   }
 
   //called when search is entered
   function search() {
-    console.log(meal);
+    console.log(props.meal);
+
+    navigate('/search')
   }
 
   //shuffled array passed in (used to shuffle recipes for home screen)
@@ -91,12 +103,12 @@ function App() {
       <Autocomplete
         disablePortal
         id="search-bar"
-        options={mealNames}
+        options={props.mealNames}
         sx={{ width: '23rem', bgcolor: 'white',  filter: 'drop-shadow(0 1mm 1.5mm  rgb(0, 0, 0, 0.1))'}}
         // sets meal const as input value
-        inputValue={meal}
+        inputValue={props.meal}
         onInputChange={(event, newInputValue) => {
-          setMeal(newInputValue);
+          props.setMeal(newInputValue);
         }}
         renderInput={(params) => <TextField 
           {...params} 
@@ -110,7 +122,7 @@ function App() {
       <div className='inspo'>
         <p className='inspo-header'>Some Eco-Inspo</p>
         <ImageList variant="masonry" cols={2} gap={'0.2rem'} sx={{ width: '90vw', textAlign: 'center' }}>
-          {allMeals.slice(0, 100).map((item) => (
+          {props.allMeals.slice(0, 100).map((item) => (
             <a href={item.url}>
               <ImageListItem key={item.image} sx={{ width: '12rem', marginBottom: '1rem' }}>
                 <img className='recipe-card-img'
@@ -134,9 +146,9 @@ function App() {
       <Box sx={{ width: 500, position: 'fixed', width: '100vw', bottom: 0, filter: 'drop-shadow(0 0mm 4mm  rgb(0, 0, 0, 0.4))' }}>
       <BottomNavigation
         showLabels
-        value={value}
+        value={props.value}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          props.setValue(newValue);
         }}
       >
         <BottomNavigationAction label="Home" icon={<HomeIcon />} />
@@ -147,6 +159,3 @@ function App() {
     </div>
   );
 }
-
-
-export default App;

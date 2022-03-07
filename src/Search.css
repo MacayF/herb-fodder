@@ -1,0 +1,55 @@
+
+
+.meal-image {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 9px 9px 0 0;
+}
+
+.meal-box {
+  width: 95vw;
+  margin-top: 4rem;
+  background-color: white;
+  border-radius: 9px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.meal-text {
+  margin: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.meal-name {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.meal-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--green);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+hr {
+  height: 1px;
+  background-color: rgb(216, 216, 216);
+  border: none;
+  width: 100%;
+  margin: 0;
+}
+
+#eco-score {
+  font-weight: bolder;
+  color: rgb(218, 131, 49);
+  font-size: 1.5rem;
+}
