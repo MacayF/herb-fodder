@@ -19,6 +19,8 @@ import { appBarClasses } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { ReplayOutlined } from '@mui/icons-material';
 import TipCard from './TipCard.js';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 
 function Search(props) {
@@ -42,11 +44,16 @@ function Search(props) {
     }
   }
 
+  function goHome() {
+    navigate('/');
+    console.log('hi');
+  }
+
   return (
     <div className="App">
       <div className='header'>
-        <img className="logo"/>
-        <p>Herb & Fodder</p>
+        <img className="logo" onClick={goHome}/>
+        <p onClick={goHome}>Herb & Fodder</p>
       </div>
       <Autocomplete
         disablePortal
@@ -88,10 +95,29 @@ function Search(props) {
       </div>
 
       <div className='tips'>
-        
+        <TipCard
+          name='Replace with Impossible Meat' 
+          image='https://vegnews.com/media/W1siZiIsIjIxMzIyL1ZlZ05ld3MuSW1wb3NzaWJsZUJ1cmdlcjQuanBnIl0sWyJwIiwiY3JvcF9yZXNpemVkIiwiMTk0NXgxMTUwKzg1KzAiLCIxNjAweDk0Nl4iLHsiZm9ybWF0IjoianBnIn1dLFsicCIsIm9wdGltaXplIl1d/VegNews.ImpossibleBurger4.jpg?sha=2253811381f67b85'
+        />
+        <TipCard
+          name='Substitute in Bell Peppers' 
+          image='https://easylowcarb.com/wp-content/uploads/2021/04/FT-Roasted-Bell-Peppers-EasyLowCarb-1.jpg'
+        />
+        <TipCard
+          name='Shop Sustainable Meat' 
+          image='https://www.beefmagazine.com/sites/beefmagazine.com/files/styles/article_featured_standard/public/beef%20cattle%20-%20red%20cows%20in%20pasture_branex_iStock_Thinkstock-595151932.jpg?itok=Fo8aiYaa'
+        />
       </div>
+
+      <Button 
+        variant="contained" 
+        endIcon={<AddIcon />}
+        sx={{ marginBottom: '6rem', position: 'fixed', bottom: 0, right: '1rem', height: '4rem', backgroundColor: 'rgb(46, 179, 64)', borderRadius: '10rem', fontSize: '1rem', fontWeight: 'bold'}}
+      >
+        Add Meal
+      </Button>
       
-      <Box sx={{ width: 500, position: 'fixed', width: '100vw', bottom: 0, filter: 'drop-shadow(0 0mm 4mm  rgb(0, 0, 0, 0.4))' }}>
+      <Box sx={{ width: 500, position: 'fixed', width: '100vw', bottom: 0, filter: 'drop-shadow(0 0mm 2mm  rgb(0, 0, 0, 0.4))' }}>
       <BottomNavigation
         showLabels
         value={props.value}
