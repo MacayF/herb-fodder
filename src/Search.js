@@ -49,6 +49,11 @@ function Search(props) {
     console.log('hi');
   }
 
+  function goEnd() {
+    navigate('/planner');
+    console.log('hi');
+  }
+
   return (
     <div className="App">
       <div className='header'>
@@ -113,6 +118,7 @@ function Search(props) {
         variant="contained" 
         endIcon={<AddIcon />}
         sx={{ marginBottom: '6rem', position: 'fixed', bottom: 0, right: '1rem', height: '4rem', backgroundColor: 'rgb(46, 179, 64)', borderRadius: '10rem', fontSize: '1rem', fontWeight: 'bold'}}
+        onClick={goEnd}
       >
         Add Meal
       </Button>

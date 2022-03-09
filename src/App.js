@@ -1,9 +1,10 @@
 import './App.css';
 import Search from './Search.js';
+import Planner from './Planner.js';
 import {useEffect, useState} from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import jsonData from './openrecipes.json';
+import jsonData from './openrecipes2.json';
 import InspoCard from './InspoCard.js';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
@@ -32,6 +33,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<App meal={meal} setMeal={setMeal} mealNames={mealNames} setMealNames={setMealNames} allMeals={allMeals} setAllMeals={setAllMeals} value={value} setValue={setValue} />} />
         <Route path="/search" element={<Search meal={meal} setMeal={setMeal} mealNames={mealNames} setMealNames={setMealNames} allMeals={allMeals} setAllMeals={setAllMeals} value={value} setValue={setValue} />} />
+        <Route path="/planner" element={<Planner/>} />
       </Routes>
     </BrowserRouter>
   );
@@ -40,6 +42,19 @@ export default function Router() {
 function App(props) {
   const loadData = JSON.parse(JSON.stringify(jsonData));
   const navigate = useNavigate();
+  const letters = [
+    {"letter":"A+", "color":"green"},
+    {"letter":"A", "color":"green"},
+    {"letter":"A-", "color":"green"},
+    {"letter":"B+", "color":"darkgoldenrod"},
+    {"letter":"B", "color":"darkgoldenrod"},
+    {"letter":"B-", "color":"darkgoldenrod"},
+    {"letter":"C+", "color":"darkorange"},
+    {"letter":"C", "color":"darkorange"},
+    {"letter":"C-", "color":"darkorange"}
+  ]
+  // const [letter, setLetter] = useState({});
+  let letter = {};
 
 
   // document.addEventListener("DOMContentLoaded", loadRecipes);
@@ -87,6 +102,14 @@ function App(props) {
         array[i] = array[j];
         array[j] = temp;
     }
+  }
+
+  function randomLetter() {
+    let number = Math.floor(Math.random() * letters.length);
+    let randomLetter = letters[number];
+    // setLetter(randomLetter);
+    letter = randomLetter;
+    console.log(letter);
   }
 
 
@@ -137,6 +160,8 @@ function App(props) {
                 />
                 <div className='subtext'>
                   {item.name}
+                  {randomLetter()}
+                  <span className='eco-grade' style={{color: letter['color']}}>{letter['letter']}</span>
                 </div>
               </ImageListItem>
             </a>
