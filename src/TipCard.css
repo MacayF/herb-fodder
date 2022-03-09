@@ -31,11 +31,12 @@
 }
 
 .stats {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(167, 167, 167, 0.329);
   width: 40%;
   backdrop-filter: blur(12px) saturate(180%);
   border-radius: 0 9px 9px 0;
   padding: 0.5rem;
+  color: white;
 }
 
 .stats p {

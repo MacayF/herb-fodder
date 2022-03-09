@@ -21,6 +21,7 @@ import { ReplayOutlined } from '@mui/icons-material';
 import TipCard from './TipCard.js';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function Search(props) {
@@ -46,12 +47,10 @@ function Search(props) {
 
   function goHome() {
     navigate('/');
-    console.log('hi');
   }
 
   function goEnd() {
     navigate('/planner');
-    console.log('hi');
   }
 
   return (
@@ -87,6 +86,12 @@ function Search(props) {
             currentTarget.onerror = null; // prevents looping
             currentTarget.src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/heart-healthy-food-1580231690.jpg";
           }}/>
+        <a href={selectMeal.url} className='info-link' target="_blank"> 
+          <div className='info-btn'>
+            Recipe
+            {<InfoIcon sx={{ color:'white', marginLeft:'0.2rem'}}/>}
+          </div>
+        </a>
         <div className='meal-text'>
           <p className='meal-name'>{selectMeal.name}</p>
           <p>{selectMeal.description}</p>

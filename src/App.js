@@ -109,7 +109,6 @@ function App(props) {
     let randomLetter = letters[number];
     // setLetter(randomLetter);
     letter = randomLetter;
-    console.log(letter);
   }
 
 
@@ -146,7 +145,7 @@ function App(props) {
         <p className='inspo-header'>Some Eco-Inspo</p>
         <ImageList variant="masonry" cols={2} gap={'0.2rem'} sx={{ width: '90vw', textAlign: 'center' }}>
           {props.allMeals.slice(0, 100).map((item) => (
-            <a href={item.url}>
+            <a href={item.url} target="_blank">
               <ImageListItem key={item.image} sx={{ width: '12rem', marginBottom: '1rem' }}>
                 <img className='recipe-card-img'
                   src={`${item.image}?w=248&fit=crop&auto=format`}

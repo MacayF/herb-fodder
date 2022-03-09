@@ -57,3 +57,20 @@ hr {
 .tips {
   margin-bottom: 10rem;
 }
+
+.info-link {
+  position: absolute;
+  right: 2rem;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
+.info-btn {
+  background-color: rgba(180, 180, 180, 0.336);
+  padding: 0.5rem;
+  border-radius: 9px;
+  backdrop-filter: blur(12px) saturate(200%);
+  color: white;
+  display: flex;
+  align-items: center;
+}
