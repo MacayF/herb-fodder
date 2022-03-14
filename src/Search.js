@@ -136,7 +136,7 @@ function Search(props) {
           props.setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction onClick={goHome} label="Home" icon={<HomeIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
         <BottomNavigationAction label="Planner" icon={<CalendarTodayIcon />} />
       </BottomNavigation>

@@ -21,12 +21,34 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
+import { Brightness1 } from '@mui/icons-material';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
 export default function Router() {
   const [meal, setMeal] = useState("");
   const [mealNames, setMealNames] = useState([]);
   const [allMeals, setAllMeals] = useState([]);
   const [value, setValue] = useState(0);
+
+  // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDZqH4WoDP9vAgxVsNmAJgr6HnpYreCAIA",
+  authDomain: "herb-fodder.firebaseapp.com",
+  projectId: "herb-fodder",
+  storageBucket: "herb-fodder.appspot.com",
+  messagingSenderId: "870014834606",
+  appId: "1:870014834606:web:2851f36e1281df70589a3f",
+  measurementId: "G-RRJ4912KCH"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
   return (
     <BrowserRouter>
